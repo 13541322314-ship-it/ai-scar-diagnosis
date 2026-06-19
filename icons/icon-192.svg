@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c9a96e"/>
+      <stop offset="100%" style="stop-color:#f0d78c"/>
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="36" fill="#0a0a12"/>
+  <rect x="8" y="8" width="176" height="176" rx="32" fill="url(#g)" opacity="0.15"/>
+  <text x="96" y="84" text-anchor="middle" font-size="64" font-weight="800" font-family="sans-serif" fill="#c9a96e">AI</text>
+  <text x="96" y="132" text-anchor="middle" font-size="24" font-weight="600" font-family="sans-serif" fill="#c9a96e" opacity="0.8">疤痕面诊</text>
+  <circle cx="156" cy="44" r="12" fill="#4ecb71" opacity="0.9"/>
+  <path d="M150 44 l4 4 l8-8" stroke="#0a0a12" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>

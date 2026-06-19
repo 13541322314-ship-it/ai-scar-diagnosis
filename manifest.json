@@ -1,0 +1,29 @@
+{
+  "name": "AI疤痕面诊",
+  "short_name": "AI面诊",
+  "description": "AI智能疤痕分析，拍照即测，3秒出报告",
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08080e",
+  "theme_color": "#c9a96e",
+  "scope": "./",
+  "categories": ["medical", "health", "beauty"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "lang": "zh-CN",
+  "dir": "ltr"
+}
