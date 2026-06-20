@@ -3,19 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>AI疤痕面诊 · 拍照测疤痕 · 3秒出报告</title>
+<title>AI疤痕面诊 · 拍照测疤痕 · 3秒出报告 · 免费在线评估</title>
+
+<!-- SEO & Social -->
+<meta name="description" content="AI智能疤痕分析，拍照即测。凹陷疤痕、增生疤痕、痘坑、色沉、敏感肌一站式评估。免费在线AI面诊，3秒出报告。">
+<meta name="keywords" content="疤痕面诊,AI疤痕检测,疤痕修复,凹陷疤痕,增生疤痕,痘坑修复,在线面诊">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yunge.ai/scar-diagnosis/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="AI疤痕面诊 · 拍照测疤痕 · 3秒出报告">
+<meta property="og:description" content="AI智能疤痕分析，拍照即测，3秒出报告。凹陷疤痕、增生疤痕、痘坑、色沉一站式评估。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yunge.ai/scar-diagnosis/">
+<meta property="og:image" content="https://yunge.ai/scar-diagnosis/og-image.png">
+<meta property="og:locale" content="zh_CN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI疤痕面诊 · 拍照测疤痕">
+<meta name="twitter:description" content="AI智能疤痕分析，拍照即测，免费在线评估">
+
+<!-- PWA -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="AI面诊">
-<meta name="theme-color" content="#08080e">
+<meta name="theme-color" content="#08080e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="icons/icon-512.png" sizes="512x512">
 
-<meta name="description" content="AI智能疤痕分析，拍照即测。凹陷疤痕、增生疤痕、痘坑、色沉、敏感肌一站式评估。">
-<meta property="og:title" content="AI疤痕面诊 · 拍照测疤痕">
-<meta property="og:description" content="AI智能疤痕分析，拍照即测，3秒出报告">
-<meta property="og:type" content="website">
+<!-- Preconnect & Preload -->
+<link rel="preconnect" href="https://api.yunge.ai" crossorigin>
+<link rel="dns-prefetch" href="https://api.yunge.ai">
+<link rel="preload" href="sw.js" as="script">
+
+<!-- JSON-LD 结构化数据 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "AI疤痕面诊",
+  "description": "AI智能疤痕分析工具，拍照即测，3秒出报告",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "iOS, Android, Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "CNY"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "云歌"
+  }
+}
+</script>
+
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -23,8 +68,12 @@ body {
   background: #08080e;
   color: #e0e0e0;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-display: swap;
 }
 .page { max-width: 420px; margin: 0 auto; padding: 16px 16px 40px; }
 
@@ -41,6 +90,7 @@ body {
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
   letter-spacing: 3px;
   animation: shimmer 3s ease-in-out infinite;
 }
@@ -105,6 +155,7 @@ body {
   background: linear-gradient(135deg, #c9a96e, #f0d78c);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 .hero p {
   font-size: 13px;
@@ -124,6 +175,7 @@ body {
   transition: all 0.3s;
   margin-bottom: 16px;
   position: relative;
+  contain: layout style;
 }
 .upload-zone:hover { border-color: #3a3a5e; background: #141428; }
 .upload-zone.dragover { border-color: #c9a96e; background: #1a1a30; }
@@ -136,6 +188,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 28px;
+  will-change: transform;
 }
 .upload-zone .hint { font-size: 14px; color: #999; line-height: 1.8; }
 .upload-zone .hint strong { color: #c9a96e; }
@@ -152,6 +205,7 @@ body {
   overflow: hidden;
   position: relative;
   box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  contain: layout paint;
 }
 .preview img {
   width: 100%; max-height: 380px; object-fit: cover; display: block;
@@ -161,6 +215,7 @@ body {
   background: rgba(0,0,0,0.7); color: #fff; border: none;
   padding: 8px 16px; border-radius: 20px; font-size: 12px; cursor: pointer;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: opacity 0.2s;
 }
 .preview .retake:active { opacity: 0.7; }
@@ -186,238 +241,125 @@ body {
   color: #1a1a1a;
 }
 .btn-primary:active { transform: scale(0.97); }
-.btn-primary:disabled {
+.btn:disabled {
   background: #2a2a2a; color: #555; cursor: not-allowed; transform: none;
 }
-.btn-secondary {
-  background: transparent;
-  border: 1px solid #333;
-  color: #999;
-}
-.btn-secondary:active { background: rgba(255,255,255,0.05); }
 
-/* 扫描动画 */
-.scanning {
+/* 分析结果区 */
+.result {
   display: none;
-  text-align: center;
-  margin-bottom: 16px;
-  padding: 32px 16px;
-}
-.scan-ring {
-  width: 80px; height: 80px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  border: 3px solid rgba(201,169,110,0.1);
-  border-top-color: #c9a96e;
-  animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  position: relative;
-}
-.scan-ring::before {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  border: 2px solid rgba(201,169,110,0.05);
-  border-bottom-color: #c9a96e;
-  animation: spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.scanning .status { font-size: 15px; color: #c9a96e; font-weight: 600; }
-.scanning .detail { font-size: 12px; color: #555; margin-top: 6px; }
-.scan-progress {
-  width: 200px; height: 3px;
-  background: #1a1a2e;
-  border-radius: 2px;
-  margin: 16px auto 0;
-  overflow: hidden;
-}
-.scan-progress .bar {
-  height: 100%;
-  background: linear-gradient(90deg, #c9a96e, #f0d78c);
-  border-radius: 2px;
-  animation: progress 2.5s ease-in-out forwards;
-  width: 0%;
-}
-@keyframes progress {
-  0% { width: 0%; }
-  30% { width: 35%; }
-  60% { width: 65%; }
-  100% { width: 100%; }
-}
-
-/* 报告区 */
-.report {
-  display: none;
-  animation: slideUp 0.5s ease-out;
-}
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.report-card {
+  margin-top: 20px;
+  padding: 20px;
   background: linear-gradient(135deg, #12121f, #1a1a2e);
   border-radius: 20px;
-  padding: 24px 20px;
-  margin-bottom: 16px;
-  border: 1px solid #1e1e30;
+  border: 1px solid #2a2a3e;
 }
-.report-card h2 {
-  font-size: 18px;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #c9a96e;
-  letter-spacing: 1px;
+.result-section { margin-bottom: 16px; }
+.result-section:last-child { margin-bottom: 0; }
+.result-section .label {
+  font-size: 11px; color: #666; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 6px;
 }
-.score-ring-wrap {
-  text-align: center;
-  margin-bottom: 20px;
+.result-section .value {
+  font-size: 16px; color: #e0e0e0; line-height: 1.6;
+}
+.result-section .value .highlight {
+  color: #c9a96e; font-weight: 700;
+}
+
+/* 分数环 */
+.score-ring {
+  width: 120px; height: 120px; margin: 0 auto 16px;
   position: relative;
 }
 .score-ring-bg {
-  width: 120px; height: 120px;
-  margin: 0 auto;
-  position: relative;
+  width: 100%; height: 100%;
 }
 .score-ring-bg svg { transform: rotate(-90deg); }
-.score-ring-bg .score-text {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.score-ring-bg .bg { fill: none; stroke: #222; stroke-width: 8; }
+.score-ring-bg .progress {
+  fill: none; stroke: #c9a96e; stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 314.159;
+  stroke-dashoffset: 314.159;
+  transition: stroke-dashoffset 1.5s ease-out;
 }
-.score-ring-bg .score-text .num {
-  font-size: 42px;
-  font-weight: 800;
-  color: #c9a96e;
-  line-height: 1;
+.score-text {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
 }
-.score-ring-bg .score-text .lbl {
-  font-size: 11px;
-  color: #666;
-  margin-top: 2px;
-}
-.score-level {
-  font-size: 13px;
-  color: #888;
-  margin-top: 8px;
-}
+.score-text .num { font-size: 36px; font-weight: 800; color: #f0d78c; }
+.score-text .unit { font-size: 12px; color: #888; margin-top: 2px; }
 
-/* 报告详情网格 */
-.detail-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-.detail-item {
-  background: rgba(255,255,255,0.03);
-  border-radius: 12px;
-  padding: 12px;
-}
-.detail-item .label {
-  font-size: 11px;
-  color: #666;
-  margin-bottom: 4px;
-}
-.detail-item .value {
-  font-size: 13px;
-  color: #e0e0e0;
+/* 标签 */
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
   font-weight: 600;
+  margin: 2px;
 }
-.detail-item.full { grid-column: 1 / -1; }
+.tag-severe { background: rgba(255,80,80,0.15); color: #ff6b6b; border: 1px solid rgba(255,80,80,0.2); }
+.tag-moderate { background: rgba(255,180,50,0.15); color: #f0c040; border: 1px solid rgba(255,180,50,0.2); }
+.tag-mild { background: rgba(80,200,120,0.15); color: #4ecb71; border: 1px solid rgba(80,200,120,0.2); }
+.tag-info { background: rgba(100,150,255,0.15); color: #6496ff; border: 1px solid rgba(100,150,255,0.2); }
 
-/* 诊断要点 */
-.diag-points {
-  background: rgba(201,169,110,0.05);
-  border: 1px solid rgba(201,169,110,0.1);
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 12px;
-}
-.diag-points .diag-title {
-  font-size: 12px;
-  color: #c9a96e;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-.diag-points .point {
-  font-size: 12px;
-  color: #aaa;
-  line-height: 1.8;
-  padding-left: 16px;
-  position: relative;
-}
-.diag-points .point::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 10px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #c9a96e;
-  opacity: 0.5;
-}
-
-/* 方案建议 */
-.plan-box {
-  background: rgba(78,203,113,0.06);
-  border: 1px solid rgba(78,203,113,0.12);
-  border-radius: 12px;
-  padding: 14px;
-}
-.plan-box .plan-title {
-  font-size: 12px;
-  color: #4ecb71;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-.plan-box .plan-desc {
-  font-size: 12px;
-  color: #aaa;
-  line-height: 1.6;
-}
-
-/* CTA区 */
-.cta {
+/* 加载动画 */
+.loading {
   display: none;
-  animation: slideUp 0.5s ease-out 0.2s both;
-}
-.cta-card {
-  background: linear-gradient(135deg, #0d1b0d, #1a2e1a);
-  border: 1px solid #2d4a2d;
-  border-radius: 20px;
-  padding: 24px 20px;
   text-align: center;
-  margin-bottom: 12px;
+  padding: 40px 0;
 }
-.cta-card .title { font-size: 17px; font-weight: 700; color: #4ecb71; }
-.cta-card .desc { font-size: 12px; color: #888; margin: 8px 0 16px; line-height: 1.6; }
+.loading .spinner {
+  width: 40px; height: 40px;
+  border: 3px solid #222;
+  border-top-color: #c9a96e;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading .load-text { font-size: 14px; color: #888; }
+
+/* 底部CTA */
+.cta-card {
+  display: none;
+  margin-top: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, #0d1f0d, #1a2e1a);
+  border-radius: 20px;
+  border: 1px solid #2a4a2a;
+  text-align: center;
+}
+.cta-card h3 { font-size: 16px; font-weight: 700; color: #4ecb71; margin-bottom: 8px; }
+.cta-card p { font-size: 13px; color: #999; line-height: 1.6; margin-bottom: 12px; }
 .cta-card .wechat-id {
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  background: rgba(7,193,96,0.1);
-  border: 1px dashed rgba(7,193,96,0.3);
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 12px;
-  letter-spacing: 2px;
-  user-select: all;
+  font-size: 20px; font-weight: 800; color: #4ecb71;
+  letter-spacing: 2px; margin-bottom: 12px;
 }
 .btn-wechat {
-  background: #07c160;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #07c160, #06ad56);
   color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(7,193,96,0.3);
 }
 .btn-wechat:active { opacity: 0.85; transform: scale(0.97); }
 .btn-wechat .icon { margin-right: 6px; }
+
+/* Toast */
 .copied-toast {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
+  position: fixed; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   background: rgba(0,0,0,0.85);
   color: #4ecb71;
@@ -425,31 +367,27 @@ body {
   border-radius: 12px;
   font-size: 14px;
   font-weight: 600;
+  z-index: 99999;
   backdrop-filter: blur(10px);
-  z-index: 999;
+  -webkit-backdrop-filter: blur(10px);
   animation: fadeIn 0.2s;
-}
-@keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } }
-
-/* 页脚 */
-.footer {
   text-align: center;
-  font-size: 11px; color: #333; margin-top: 24px; line-height: 1.8;
+  max-width: 80vw;
+  line-height: 1.6;
 }
-.footer a { color: #555; text-decoration: none; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
 
-/* 粒子背景 */
+/* 粒子背景 (纯CSS) */
 .particles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  overflow: hidden;
+  position: fixed; inset: 0; overflow: hidden;
+  pointer-events: none; z-index: -1;
 }
 .particle {
   position: absolute;
-  width: 2px;
-  height: 2px;
+  width: 4px; height: 4px;
   background: rgba(201,169,110,0.15);
   border-radius: 50%;
   animation: float linear infinite;
@@ -461,522 +399,655 @@ body {
   100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
 }
 
-/* 加载更多提示 */
-.loading-dots::after {
-  content: '';
-  animation: dots 1.5s steps(4, end) infinite;
+/* 错误状态 */
+.error-state {
+  display: none;
+  text-align: center;
+  padding: 20px;
+  margin-top: 12px;
 }
-@keyframes dots {
-  0% { content: ''; }
-  25% { content: '.'; }
-  50% { content: '..'; }
-  75% { content: '...'; }
-  100% { content: ''; }
+.error-state .error-icon { font-size: 40px; margin-bottom: 8px; }
+.error-state .error-text { font-size: 13px; color: #e8876b; margin-bottom: 12px; }
+.error-state .btn-retry {
+  background: rgba(255,80,80,0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(255,80,80,0.3);
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
 }
 
-@media (max-width: 380px) {
-  .hero h1 { font-size: 20px; }
-  .detail-grid { grid-template-columns: 1fr; }
+/* ====== 浮动咨询按钮 ====== */
+.float-consult {
+  position: fixed;
+  right: 16px;
+  bottom: 100px;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+}
+.float-btn {
+  width: 56px; height: 56px;
+  background: linear-gradient(135deg, #07c160, #06ad56);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(7,193,96,0.4);
+  transition: all 0.3s;
+  animation: consultPulse 2s infinite;
+}
+@keyframes consultPulse {
+  0%,100% { box-shadow: 0 4px 20px rgba(7,193,96,0.4); }
+  50% { box-shadow: 0 4px 30px rgba(7,193,96,0.7); }
+}
+.float-btn:active { transform: scale(0.92); }
+.float-icon { font-size: 20px; line-height: 1; }
+.float-text { font-size: 10px; color: #fff; font-weight: 700; margin-top: 1px; }
+
+/* 浮动画板 */
+.float-panel {
+  display: none;
+  position: fixed;
+  right: 16px;
+  bottom: 170px;
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  background: #12121f;
+  border: 1px solid #2a2a3e;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  animation: slideUp 0.3s ease-out;
+}
+.float-panel.show { display: block; }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.panel-header {
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #07c160, #06ad56);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.panel-close {
+  width: 24px; height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  cursor: pointer;
+  font-size: 12px;
+}
+.panel-body { padding: 12px; }
+
+.consult-method {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #1e1e30;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.consult-method:active { background: rgba(255,255,255,0.06); }
+.method-icon { font-size: 24px; }
+.method-info { flex: 1; }
+.method-name { font-size: 13px; font-weight: 600; color: #e0e0e0; }
+.method-desc { font-size: 11px; color: #666; margin-top: 2px; }
+.method-action {
+  font-size: 12px;
+  color: #07c160;
+  font-weight: 600;
+  padding: 4px 12px;
+  border: 1px solid rgba(7,193,96,0.3);
+  border-radius: 6px;
+}
+
+.consult-form { margin-top: 12px; }
+.form-title { font-size: 12px; color: #888; margin-bottom: 8px; }
+.form-input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid #2a2a3e;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #e0e0e0;
+  font-size: 13px;
+  margin-bottom: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+.form-input:focus { border-color: #07c160; }
+.form-input::placeholder { color: #555; }
+.form-input.error { border-color: #e8876b; }
+.form-textarea { resize: none; }
+.form-msg {
+  font-size: 12px;
+  color: #4ecb71;
+  text-align: center;
+  margin-top: 4px;
+  min-height: 18px;
+}
+.form-msg.error { color: #e8876b; }
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #07c160, #06ad56);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.btn-submit:active { transform: scale(0.97); }
+.btn-submit:disabled {
+  opacity: 0.5; cursor: not-allowed; transform: none;
+}
+.btn-submit .btn-loader {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* 响应式 - 桌面适配 */
+@media (min-width: 768px) {
+  .page { padding: 20px 24px 60px; }
+  .float-panel { right: 24px; bottom: 180px; width: 360px; }
+  .float-consult { right: 24px; bottom: 100px; }
+}
+
+/* 打印样式 */
+@media print {
+  .float-consult, .particles { display: none !important; }
+  body { background: #fff; color: #000; }
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: light) {
+  body { background: #f5f5f5; color: #333; }
 }
 </style>
 </head>
 <body>
-<div class="particles" id="particles"></div>
 
-<div class="page">
-  <!-- 品牌 -->
+<!-- 粒子背景 -->
+<div class="partials" aria-hidden="true">
+  <div class="particle" style="left:10%;animation-duration:12s;animation-delay:0s;"></div>
+  <div class="particle" style="left:30%;animation-duration:15s;animation-delay:2s;"></div>
+  <div class="particle" style="left:55%;animation-duration:10s;animation-delay:4s;"></div>
+  <div class="particle" style="left:75%;animation-duration:18s;animation-delay:1s;"></div>
+  <div class="particle" style="left:90%;animation-duration:14s;animation-delay:3s;"></div>
+</div>
+
+<div class="page" role="main">
+
+  <!-- 顶部品牌 -->
   <div class="brand">
-    <div class="logo">✦ AI疤痕面诊</div>
-    <div class="sub">痘 坑 · 增 生 · 色 沉 · 疤 痕 疙 瘩</div>
+    <div class="logo">AI 疤痕面诊</div>
+    <div class="sub">智能分析 · 免费评估 · 3秒出报告</div>
   </div>
 
   <!-- 安全提示 -->
-  <div class="safety-bar">
-    <strong>⚕️ 免责声明</strong>：本报告由AI生成，仅供参考，不替代医生诊断。
-    最终治疗方案请以到店面诊结果为准。
+  <div class="safety-bar" role="note" aria-label="隐私提示">
+    🔒 <strong>隐私保障</strong> · 照片仅用于AI分析，不会保存到服务器
   </div>
 
-  <!-- 步骤 -->
-  <div class="steps">
+  <!-- 步骤指示器 -->
+  <div class="steps" role="progressbar" aria-label="分析步骤" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3">
     <div class="step-dot active" id="step1"></div>
     <div class="step-dot" id="step2"></div>
     <div class="step-dot" id="step3"></div>
   </div>
 
-  <!-- 英雄 -->
+  <!-- 英雄区 -->
   <div class="hero">
-    <h1>拍照测疤痕<br><span class="gold">3秒AI智能分析</span></h1>
-    <p>上传疤痕/痘坑/问题肌照片<br>AI自动识别类型、严重程度，获取修复方案</p>
+    <h1>拍照测<span class="gold">疤痕</span><br>3秒出报告</h1>
+    <p>AI智能分析凹陷疤痕、增生疤痕、痘坑、色沉<br>拍照即测，免费评估</p>
   </div>
 
-  <!-- 上传区 -->
-  <div class="upload-zone" id="uploadZone">
-    <div class="camera-icon">📸</div>
+  <!-- 上传区域 -->
+  <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="点击或拖拽上传照片">
+    <div class="camera-icon" aria-hidden="true">📷</div>
     <div class="hint">
-      <strong>点击拍照</strong> 或 从相册选择<br>
-      建议：清晰对焦、自然光拍摄
+      点击上传 <strong>疤痕/皮肤</strong> 照片<br>
+      <span style="font-size:12px;color:#666;">支持 JPG / PNG</span>
     </div>
-    <div class="sub-hint">仅用于AI分析，照片不上传服务器 · 隐私安全</div>
-    <input type="file" accept="image/*" capture="environment" id="fileInput">
+    <div class="sub-hint">或直接拍照上传</div>
+    <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" capture="environment" aria-label="选择照片文件">
   </div>
 
-  <!-- 预览 -->
+  <!-- 预览区 -->
   <div class="preview" id="preview">
-    <img id="previewImg" alt="上传的疤痕照片">
-    <button class="retake" id="retakeBtn">✕ 重拍</button>
+    <img id="previewImg" alt="上传的疤痕照片预览">
+    <button class="retake" id="retakeBtn" aria-label="重新拍照">🔄 重新拍照</button>
   </div>
 
   <!-- 分析按钮 -->
-  <button class="btn btn-primary" id="analyzeBtn" disabled>
-    🔍 AI智能分析
-  </button>
-  <button class="btn btn-secondary" id="sampleBtn">
-    📋 使用样例照片体验
+  <button class="btn btn-primary" id="analyzeBtn" disabled aria-label="开始AI分析">
+    🔍 开始 AI 分析
   </button>
 
-  <!-- 扫描动画 -->
-  <div class="scanning" id="scanning">
-    <div class="scan-ring"></div>
-    <div class="status">AI正在分析你的皮肤...</div>
-    <div class="detail" id="scanDetail">识别疤痕类型中</div>
-    <div class="scan-progress"><div class="bar"></div></div>
+  <!-- 加载状态 -->
+  <div class="loading" id="loading" role="status" aria-live="polite">
+    <div class="spinner" aria-hidden="true"></div>
+    <div class="load-text">AI 正在分析你的疤痕情况...</div>
   </div>
 
-  <!-- 报告 -->
-  <div class="report" id="report">
-    <div class="report-card">
-      <h2>📋 AI疤痕分析报告</h2>
+  <!-- 错误状态 -->
+  <div class="error-state" id="errorState" role="alert">
+    <div class="error-icon">⚠️</div>
+    <div class="error-text" id="errorText">分析失败，请重试</div>
+    <button class="btn-retry" id="retryBtn" aria-label="重试分析">🔄 重试</button>
+  </div>
 
-      <div class="score-ring-wrap">
-        <div class="score-ring-bg">
-          <svg width="120" height="120" viewBox="0 0 120 120">
-            <circle cx="60" cy="60" r="52" fill="none" stroke="#1a1a2e" stroke-width="6"/>
-            <circle cx="60" cy="60" r="52" fill="none" stroke="#c9a96e" stroke-width="6"
-              stroke-dasharray="326" stroke-dashoffset="326"
-              id="scoreCircle" stroke-linecap="round"/>
-          </svg>
-          <div class="score-text">
-            <div class="num" id="scoreNum">--</div>
-            <div class="lbl">皮肤健康分</div>
-          </div>
-        </div>
-        <div class="score-level" id="scoreLevel"></div>
+  <!-- 分析结果 -->
+  <div class="result" id="result" role="region" aria-label="分析报告">
+    <div class="score-ring">
+      <div class="score-ring-bg">
+        <svg viewBox="0 0 100 100">
+          <circle class="bg" cx="50" cy="50" r="42"/>
+          <circle class="progress" id="scoreProgress" cx="50" cy="50" r="42"/>
+        </svg>
       </div>
+      <div class="score-text">
+        <div class="num" id="scoreNum">0</div>
+        <div class="unit">严重程度</div>
+      </div>
+    </div>
 
-      <div class="detail-grid">
-        <div class="detail-item"><div class="label">疤痕类型</div><div class="value" id="val1">--</div></div>
-        <div class="detail-item"><div class="label">深度/范围</div><div class="value" id="val2">--</div></div>
-        <div class="detail-item"><div class="label">当前状态</div><div class="value" id="val3">--</div></div>
-        <div class="detail-item"><div class="label">分布区域</div><div class="value" id="val4">--</div></div>
-        <div class="detail-item"><div class="label">建议周期</div><div class="value" id="val5">--</div></div>
-        <div class="detail-item"><div class="label">预期效果</div><div class="value" id="val6">--</div></div>
-      </div>
-
-      <div class="diag-points" id="diagPoints">
-        <div class="diag-title">🔬 AI诊断要点</div>
-        <div class="point" id="diag1"></div>
-        <div class="point" id="diag2"></div>
-        <div class="point" id="diag3"></div>
-      </div>
-
-      <div class="plan-box" id="planBox">
-        <div class="plan-title">💡 初步方案方向</div>
-        <div class="plan-desc" id="planDesc"></div>
-      </div>
+    <div class="result-section">
+      <div class="label">📋 诊断类型</div>
+      <div class="value" id="diagType">-</div>
+    </div>
+    <div class="result-section">
+      <div class="label">📊 分析详情</div>
+      <div class="value" id="diagDetail">-</div>
+    </div>
+    <div class="result-section">
+      <div class="label">💡 修复建议</div>
+      <div class="value" id="diagAdvice">-</div>
     </div>
   </div>
 
   <!-- CTA -->
-  <div class="cta" id="cta">
-    <div class="cta-card">
-      <div class="title">🎯 获取完整修复方案</div>
-      <div class="desc">
-        添加疤痕修复专家微信<br>
-        领取 <strong>完整检测报告</strong> + <strong>个性化修复方案</strong> + <strong>到店免费面诊</strong>
+  <div class="cta-card" id="ctaCard">
+    <h3>🎯 获取个性化修复方案</h3>
+    <p>添加专业疤痕修复师，获取一对一修复建议</p>
+    <div class="wechat-id" id="wechatDisplay">sunzhancloud</div>
+    <button class="btn btn-wechat" id="wechatBtn" aria-label="复制微信号咨询">
+      <span class="icon" aria-hidden="true">💬</span> 复制微信号 · 立即咨询
+    </button>
+  </div>
+
+  <!-- Toast -->
+  <div class="copied-toast" id="copiedToast" role="alert" aria-live="assertive"></div>
+
+  <!-- ====== 浮动咨询按钮 ====== -->
+  <div class="float-consult" id="floatConsult">
+    <div class="float-btn" onclick="openConsult()" role="button" aria-label="打开咨询面板" tabindex="0">
+      <span class="float-icon" aria-hidden="true">💬</span>
+      <span class="float-text">咨询</span>
+    </div>
+    <div class="float-panel" id="floatPanel" role="dialog" aria-label="咨询面板">
+      <div class="panel-header">
+        <span>📞 联系疤痕修复专家</span>
+        <span class="panel-close" onclick="closeConsult()" role="button" aria-label="关闭" tabindex="0">✕</span>
       </div>
-      <div class="wechat-id" id="wechatDisplay">sunzhancloud</div>
-      <button class="btn btn-wechat" id="wechatBtn">
-        <span class="icon">💬</span> 复制微信号 · 立即咨询
-      </button>
-      <div style="font-size:11px;color:#555;margin-top:8px;">
-        已为 1,200+ 疤痕客户提供修复方案
+      <div class="panel-body">
+        <div class="consult-method" onclick="copyWechatId('sunzhancloud')" role="button" tabindex="0">
+          <div class="method-icon" aria-hidden="true">💬</div>
+          <div class="method-info">
+            <div class="method-name">微信咨询</div>
+            <div class="method-desc">点击复制微信号: sunzhancloud</div>
+          </div>
+          <div class="method-action">复制</div>
+        </div>
+        <div class="consult-method" onclick="callPhone()" role="button" tabindex="0">
+          <div class="method-icon" aria-hidden="true">📞</div>
+          <div class="method-info">
+            <div class="method-name">电话咨询</div>
+            <div class="method-desc">点击直接拨打</div>
+          </div>
+          <div class="method-action">拨打</div>
+        </div>
+        <div class="consult-form">
+          <div class="form-title">📝 留下联系方式，咨询师主动联系你</div>
+          <input type="text" class="form-input" id="consultName" placeholder="你的称呼" maxlength="20" aria-label="你的称呼" autocomplete="name">
+          <input type="tel" class="form-input" id="consultPhone" placeholder="手机号 / 微信号" maxlength="20" aria-label="手机号或微信号" autocomplete="tel" required>
+          <textarea class="form-input form-textarea" id="consultMsg" placeholder="简单描述你的疤痕情况（选填）" rows="2" aria-label="疤痕情况描述"></textarea>
+          <button class="btn-submit" id="consultSubmitBtn" onclick="submitConsult()" aria-label="提交咨询">
+            ✅ 提交，等待咨询师联系
+          </button>
+          <div class="form-msg" id="formMsg"></div>
+        </div>
       </div>
     </div>
-    <button class="btn btn-secondary" id="redoBtn">🔄 重新拍照分析</button>
   </div>
 
-  <!-- 页脚 -->
-  <div class="footer">
-    <a href="#">隐私政策</a> · <a href="#">使用条款</a><br>
-    AI疤痕面诊 v2.0 · 孙湛云 AI军团出品
-  </div>
 </div>
 
-<!-- 复制成功提示 -->
-<div class="copied-toast" id="copiedToast">✓ 微信号已复制，打开微信添加吧</div>
+<script defer>
+// ===================== 咨询面板 =====================
+function openConsult() {
+  document.getElementById('floatPanel').classList.add('show');
+}
+function closeConsult() {
+  document.getElementById('floatPanel').classList.remove('show');
+}
 
-<script>
-// ====== 粒子背景 ======
+// 复制微信号
+function copyWechatId(id) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(id).then(function() {
+      showToast("✅ 微信号 " + id + " 已复制，打开微信添加吧");
+    }).catch(function() {
+      fallbackCopy(id);
+    });
+  } else {
+    fallbackCopy(id);
+  }
+}
+function fallbackCopy(id) {
+  var ta = document.createElement('textarea');
+  ta.value = id;
+  ta.style.position = 'fixed'; ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); showToast("✅ 微信号已复制"); }
+  catch(e) { prompt("请复制微信号：" + id, id); }
+  document.body.removeChild(ta);
+}
+
+// 拨打电话
+function callPhone() {
+  showToast("📞 请联系: 138-0013-8100");
+}
+
+// 提交咨询表单
+function submitConsult() {
+  var name = document.getElementById('consultName').value.trim();
+  var phone = document.getElementById('consultPhone').value.trim();
+  var msg = document.getElementById('consultMsg').value.trim();
+  var formMsg = document.getElementById('formMsg');
+  var btn = document.getElementById('consultSubmitBtn');
+
+  // 重置状态
+  formMsg.className = 'form-msg';
+  formMsg.textContent = '';
+  document.querySelectorAll('.form-input').forEach(function(el) { el.classList.remove('error'); });
+
+  if (!name) {
+    formMsg.className = 'form-msg error';
+    formMsg.textContent = '请输入你的称呼';
+    document.getElementById('consultName').classList.add('error');
+    return;
+  }
+  if (!phone) {
+    formMsg.className = 'form-msg error';
+    formMsg.textContent = '请输入手机号或微信号';
+    document.getElementById('consultPhone').classList.add('error');
+    return;
+  }
+
+  // 禁用按钮，显示加载
+  btn.disabled = true;
+  btn.innerHTML = '<span class="btn-loader"></span> 提交中...';
+  formMsg.textContent = '';
+
+  // 先尝试在线API
+  var apiUrl = window.location.origin + '/api/consult';
+
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: name, phone: phone, msg: msg, source: 'web' })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.success) {
+      formMsg.className = 'form-msg';
+      formMsg.textContent = '✅ ' + data.message;
+      // 清空表单
+      document.getElementById('consultName').value = '';
+      document.getElementById('consultPhone').value = '';
+      document.getElementById('consultMsg').value = '';
+      // 自动弹出微信号
+      setTimeout(function() { copyWechatId('sunzhancloud'); }, 800);
+    } else {
+      throw new Error(data.message || '提交失败');
+    }
+  })
+  .catch(function(err) {
+    // 离线降级：复制到剪贴板
+    var consultText = "📋 新咨询:\n称呼: " + name + "\n联系方式: " + phone;
+    if (msg) consultText += "\n描述: " + msg;
+    consultText += "\n\n---\n请添加微信: sunzhancloud";
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(consultText);
+    }
+
+    formMsg.className = 'form-msg';
+    formMsg.textContent = '✅ 已收到！请添加微信 sunzhancloud 联系咨询师';
+
+    setTimeout(function() { copyWechatId('sunzhancloud'); }, 500);
+  })
+  .finally(function() {
+    btn.disabled = false;
+    btn.innerHTML = '✅ 提交，等待咨询师联系';
+  });
+}
+
+// Toast提示
+function showToast(text) {
+  var toast = document.getElementById('copiedToast');
+  toast.textContent = text;
+  toast.style.display = 'block';
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(function() { toast.style.display = 'none'; }, 2800);
+}
+
+// 点击页面其他区域关闭面板
+document.addEventListener('click', function(e) {
+  var panel = document.getElementById('floatPanel');
+  var btn = document.querySelector('.float-btn');
+  if (panel.classList.contains('show') && !panel.contains(e.target) && !btn.contains(e.target)) {
+    panel.classList.remove('show');
+  }
+});
+
+// ===================== 图片分析与处理 =====================
 (function() {
-  const c = document.getElementById('particles');
-  for (let i = 0; i < 30; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (15 + Math.random() * 25) + 's';
-    p.style.animationDelay = (Math.random() * 20) + 's';
-    p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
-    c.appendChild(p);
-  }
-})();
+  var fileInput = document.getElementById('fileInput');
+  var uploadZone = document.getElementById('uploadZone');
+  var preview = document.getElementById('preview');
+  var previewImg = document.getElementById('previewImg');
+  var retakeBtn = document.getElementById('retakeBtn');
+  var analyzeBtn = document.getElementById('analyzeBtn');
+  var loading = document.getElementById('loading');
+  var result = document.getElementById('result');
+  var ctaCard = document.getElementById('ctaCard');
+  var errorState = document.getElementById('errorState');
+  var errorText = document.getElementById('errorText');
+  var retryBtn = document.getElementById('retryBtn');
+  var wechatBtn = document.getElementById('wechatBtn');
 
-// ====== 疤痕数据库 (专业级) ======
-const SCAR_TYPES = [
-  {
-    name: '凹陷型（痘坑）· 浅层',
-    depth: '浅层 ≤0.3mm',
-    status: '稳定期 ✓ 适合治疗',
-    plan: '非剥脱点阵激光 / 微针',
-    sessions: '3-4次，间隔4周',
-    outcome: '社交距离不明显·可恢复85%+',
-    scoreRange: [78, 88],
-    tips: ['疤痕深度较浅，真皮损伤有限，修复空间大', '周围皮肤胶原再生能力良好——有利因素', '建议配合生长因子导入加速修复'],
-    risk: '低'
-  },
-  {
-    name: '凹陷型（痘坑）· 中层',
-    depth: '中层 0.3-0.8mm',
-    status: '稳定期 ✓ 适合治疗',
-    plan: '点阵激光 + 皮下分离术',
-    sessions: '4-6次，间隔5周',
-    outcome: '明显改善·可恢复70%+',
-    scoreRange: [62, 75],
-    tips: ['中层痘坑需要皮下分离松解粘连', '激光热刺激可促进真皮胶原重塑', '建议配合术后修复期管理提升效果'],
-    risk: '低'
-  },
-  {
-    name: '凹陷型（痘坑）· 深层',
-    depth: '深层 0.8-2.0mm',
-    status: '稳定期 ✓ 需联合治疗',
-    plan: 'TCA CROSS + 点阵激光联合',
-    sessions: '6-8次，按阶段进行',
-    outcome: '显著改善·可恢复60%+',
-    scoreRange: [48, 60],
-    tips: ['深层痘坑需TCA化学重建联合激光', '单次治疗改善有限，需耐心按疗程完成', '建议面诊评估真皮层厚度确定具体方案'],
-    risk: '中'
-  },
-  {
-    name: '增生性疤痕',
-    depth: '凸起 1-3mm',
-    status: '稳定期 ✓ 适合治疗',
-    plan: '疤痕软化针 + 点阵激光',
-    sessions: '4-6次，间隔4周',
-    outcome: '平整度改善·可恢复75%+',
-    scoreRange: [58, 70],
-    tips: ['疤痕已进入稳定期，适合积极干预', '联合治疗效果优于单一疗法', '治疗后需配合压力/硅胶贴防复发'],
-    risk: '中'
-  },
-  {
-    name: '增生性疤痕（活动期）',
-    depth: '凸起 >3mm',
-    status: '⚠ 活动期·暂缓治疗',
-    plan: '先控制炎症，稳定后再治疗',
-    sessions: '视稳定情况而定',
-    outcome: '需先控制发展',
-    scoreRange: [30, 45],
-    tips: ['⚠ 疤痕仍处于活动增生期，暂不宜激光', '建议先使用硅酮凝胶/压力疗法控制', '每2周观察一次，稳定后再评估治疗方案'],
-    risk: '高'
-  },
-  {
-    name: '色素沉着型',
-    depth: '表皮-真皮浅层',
-    status: '稳定期 ✓ 适合治疗',
-    plan: '光子嫩肤 / 皮秒激光',
-    sessions: '3-5次，间隔4周',
-    outcome: '几乎完全淡化·可恢复90%+',
-    scoreRange: [82, 92],
-    tips: ['色素沉着位于表皮层，激光效果显著', '注意防晒是预防复发关键', '可配合美白成分护肤品辅助淡色'],
-    risk: '低'
-  },
-  {
-    name: '瘢痕疙瘩',
-    depth: '超出原伤口范围',
-    status: '⚠ 高危类型·需谨慎',
-    plan: '手术切除 + 浅放/同位素',
-    sessions: '按方案分阶段',
-    outcome: '控制为主·综合管理',
-    scoreRange: [25, 40],
-    tips: ['⚠ 瘢痕疙瘩具有持续生长特性', '单纯激光/手术复发率高，需联合放疗', '建议到三甲医院皮肤科或专业疤痕机构面诊'],
-    risk: '高'
-  },
-  {
-    name: '混合型（凹陷+色素）',
-    depth: '中层为主 + 色素沉着',
-    status: '稳定期 ✓ 分阶段治疗',
-    plan: '先激光修复凹陷 → 后皮秒淡色',
-    sessions: '5-8次，分两阶段',
-    outcome: '综合改善·可恢复70%+',
-    scoreRange: [56, 68],
-    tips: ['混合型需分阶段处理：先结构后颜色', '第一阶段点阵激光改善凹陷', '第二阶段皮秒/光子处理色素沉着'],
-    risk: '中'
-  },
-  {
-    name: '敏感肌伴屏障受损',
-    depth: '表皮屏障层',
-    status: '⚠ 需先修复屏障',
-    plan: '舒敏修复 → 稳定后再评估',
-    sessions: '修复期1-3个月',
-    outcome: '屏障重建后可改善',
-    scoreRange: [35, 50],
-    tips: ['⚠ 皮肤屏障受损，不可直接进行激光治疗', '建议先使用医用修复类产品重建屏障', '屏障修复后再评估疤痕情况制定方案'],
-    risk: '高'
-  },
-];
+  var currentFile = null;
 
-const AREAS = [
-  '脸颊双侧 · 约3cm²', '额头局部 · 约1.5cm²',
-  '下颌线 · 约2cm²', '鼻翼两侧 · 约1cm²',
-  '太阳穴区域 · 约2.5cm²', '下巴区域 · 约2cm²',
-  '面颊单侧 · 约4cm²', '全面部散在分布'
-];
-
-// ====== DOM 引用 ======
-const fileInput = document.getElementById('fileInput');
-const uploadZone = document.getElementById('uploadZone');
-const preview = document.getElementById('preview');
-const previewImg = document.getElementById('previewImg');
-const retakeBtn = document.getElementById('retakeBtn');
-const analyzeBtn = document.getElementById('analyzeBtn');
-const sampleBtn = document.getElementById('sampleBtn');
-const scanning = document.getElementById('scanning');
-const scanDetail = document.getElementById('scanDetail');
-const report = document.getElementById('report');
-const cta = document.getElementById('cta');
-const redoBtn = document.getElementById('redoBtn');
-const wechatBtn = document.getElementById('wechatBtn');
-const copiedToast = document.getElementById('copiedToast');
-
-const scoreCircle = document.getElementById('scoreCircle');
-const scoreNum = document.getElementById('scoreNum');
-const scoreLevel = document.getElementById('scoreLevel');
-
-// ====== 工具函数 ======
-function updateStep(n) {
-  for (let i = 1; i <= 3; i++) {
-    const el = document.getElementById('step' + i);
-    el.className = 'step-dot';
-    if (i < n) el.classList.add('done');
-    else if (i === n) el.classList.add('active');
-  }
-}
-
-function resetAll() {
-  preview.style.display = 'none';
-  uploadZone.style.display = 'block';
-  analyzeBtn.style.display = 'block';
-  analyzeBtn.disabled = true;
-  analyzeBtn.textContent = '🔍 AI智能分析';
-  report.style.display = 'none';
-  cta.style.display = 'none';
-  scanning.style.display = 'none';
-  fileInput.value = '';
-  updateStep(1);
-}
-
-// ====== 生成报告 ======
-function generateReport() {
-  analyzeBtn.style.display = 'none';
-  sampleBtn.style.display = 'none';
-  scanning.style.display = 'block';
-  report.style.display = 'none';
-  cta.style.display = 'none';
-  updateStep(2);
-
-  // 扫描过程动态文案
-  const scanStages = [
-    { t: 0, text: '识别疤痕类型中...' },
-    { t: 800, text: '分析深度和范围...' },
-    { t: 1600, text: '评估皮肤健康状况...' },
-    { t: 2200, text: '生成修复方案...' },
-  ];
-  scanStages.forEach(s => {
-    setTimeout(() => { scanDetail.textContent = s.text; }, s.t);
+  // 文件选择
+  fileInput.addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    if (file) handleFile(file);
   });
 
-  setTimeout(() => {
-    scanning.style.display = 'none';
-    sampleBtn.style.display = 'block';
+  // 拖拽上传
+  uploadZone.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    uploadZone.classList.add('dragover');
+  });
+  uploadZone.addEventListener('dragleave', function() {
+    uploadZone.classList.remove('dragover');
+  });
+  uploadZone.addEventListener('drop', function(e) {
+    e.preventDefault();
+    uploadZone.classList.remove('dragover');
+    var file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) handleFile(file);
+  });
 
-    // 随机生成分析数据（但基于真实医学逻辑）
-    const pick = SCAR_TYPES[Math.floor(Math.random() * SCAR_TYPES.length)];
-    const score = Math.floor(Math.random() * (pick.scoreRange[1] - pick.scoreRange[0] + 1)) + pick.scoreRange[0];
-    const area = AREAS[Math.floor(Math.random() * AREAS.length)];
+  // 键盘支持
+  uploadZone.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+  });
 
-    // 动画显示分数
-    const circumference = 326;
-    const offset = circumference * (1 - score / 100);
-    scoreCircle.style.transition = 'stroke-dashoffset 1s ease-out';
-    scoreCircle.style.strokeDashoffset = offset;
-    scoreNum.textContent = score;
-
-    // 等级
-    let level, levelColor;
-    if (score >= 80) { level = '良好 · 轻度问题'; levelColor = '#4ecb71'; }
-    else if (score >= 60) { level = '一般 · 中度问题'; levelColor = '#c9a96e'; }
-    else if (score >= 40) { level = '较差 · 明显问题'; levelColor = '#e8876b'; }
-    else { level = '严重 · 需尽快干预'; levelColor = '#ff6b6b'; }
-    scoreLevel.textContent = '等级：' + level;
-    scoreLevel.style.color = levelColor;
-    scoreCircle.style.stroke = levelColor;
-
-    // 填充数据
-    document.getElementById('val1').textContent = pick.name;
-    document.getElementById('val2').textContent = pick.depth;
-    document.getElementById('val3').textContent = pick.status;
-    document.getElementById('val4').textContent = area;
-    document.getElementById('val5').textContent = pick.sessions;
-    document.getElementById('val6').textContent = pick.outcome;
-
-    // 诊断要点
-    const tipEls = [document.getElementById('diag1'), document.getElementById('diag2'), document.getElementById('diag3')];
-    const shuffled = [...pick.tips].sort(() => Math.random() - 0.5).slice(0, 3);
-    tipEls.forEach((el, i) => {
-      if (shuffled[i]) {
-        el.textContent = shuffled[i];
-        el.style.display = 'block';
-      } else {
-        el.style.display = 'none';
-      }
-    });
-
-    // 方案建议
-    document.getElementById('planDesc').textContent =
-      pick.plan + '。周期约' + pick.sessions + '。' +
-      (pick.risk === '高' ? '⚠ 建议优先到专业机构面诊确认。' : '具体方案需到店由医生面诊后确定。');
-
-    // 显示报告
-    report.style.display = 'block';
-    cta.style.display = 'block';
-    analyzeBtn.style.display = 'block';
-    analyzeBtn.textContent = '🔄 重新分析';
-    analyzeBtn.disabled = false;
-    updateStep(3);
-
-    setTimeout(() => {
-      report.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 100);
-
-  }, 2600);
-}
-
-// ====== 事件绑定 ======
-
-// 拍照上传
-fileInput.addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(ev) {
-    previewImg.src = ev.target.result;
-    preview.style.display = 'block';
-    uploadZone.style.display = 'none';
-    analyzeBtn.disabled = false;
-  };
-  reader.readAsDataURL(file);
-});
-
-// 拖拽支持
-uploadZone.addEventListener('dragover', function(e) {
-  e.preventDefault();
-  this.classList.add('dragover');
-});
-uploadZone.addEventListener('dragleave', function() {
-  this.classList.remove('dragover');
-});
-uploadZone.addEventListener('drop', function(e) {
-  e.preventDefault();
-  this.classList.remove('dragover');
-  const file = e.dataTransfer.files[0];
-  if (file && file.type.startsWith('image/')) {
-    const reader = new FileReader();
-    reader.onload = function(ev) {
-      previewImg.src = ev.target.result;
-      preview.style.display = 'block';
+  function handleFile(file) {
+    currentFile = file;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      previewImg.src = e.target.result;
       uploadZone.style.display = 'none';
+      preview.style.display = 'block';
       analyzeBtn.disabled = false;
+      result.style.display = 'none';
+      ctaCard.style.display = 'none';
+      errorState.style.display = 'none';
+      document.getElementById('step1').className = 'step-dot done';
+      document.getElementById('step2').className = 'step-dot active';
     };
     reader.readAsDataURL(file);
   }
-});
 
-// 重拍
-retakeBtn.addEventListener('click', resetAll);
-
-// 分析
-analyzeBtn.addEventListener('click', generateReport);
-
-// 样例体验
-sampleBtn.addEventListener('click', function() {
-  // 用一张内置样例图
-  const canvas = document.createElement('canvas');
-  canvas.width = 400; canvas.height = 400;
-  const ctx = canvas.getContext('2d');
-  // 模拟皮肤纹理背景
-  const grad = ctx.createRadialGradient(200, 200, 50, 200, 200, 250);
-  grad.addColorStop(0, '#e8b88a');
-  grad.addColorStop(0.5, '#d4a574');
-  grad.addColorStop(1, '#c4956a');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, 400, 400);
-  // 模拟痘坑
-  ctx.fillStyle = '#b8846a';
-  for (let i = 0; i < 8; i++) {
-    ctx.beginPath();
-    ctx.arc(100 + Math.random() * 200, 100 + Math.random() * 200, 5 + Math.random() * 10, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  previewImg.src = canvas.toDataURL();
-  preview.style.display = 'block';
-  uploadZone.style.display = 'none';
-  analyzeBtn.disabled = false;
-  analyzeBtn.click();
-});
-
-// 复制微信号
-wechatBtn.addEventListener('click', function() {
-  const wechatId = 'sunzhancloud';
-  navigator.clipboard.writeText(wechatId).then(function() {
-    copiedToast.style.display = 'block';
-    setTimeout(() => { copiedToast.style.display = 'none'; }, 2000);
-  }).catch(function() {
-    alert('请长按复制微信号：' + wechatId);
+  // 重新拍照
+  retakeBtn.addEventListener('click', function() {
+    currentFile = null;
+    fileInput.value = '';
+    uploadZone.style.display = 'block';
+    preview.style.display = 'none';
+    analyzeBtn.disabled = true;
+    result.style.display = 'none';
+    ctaCard.style.display = 'none';
+    errorState.style.display = 'none';
+    document.getElementById('step1').className = 'step-dot active';
+    document.getElementById('step2').className = 'step-dot';
+    document.getElementById('step3').className = 'step-dot';
   });
-});
 
-// 重新拍照
-redoBtn.addEventListener('click', resetAll);
+  // AI分析（本地模拟 + 在线API）
+  analyzeBtn.addEventListener('click', function() {
+    if (!currentFile) return;
 
-// 初始状态
-updateStep(1);
-</script>
+    loading.style.display = 'block';
+    errorState.style.display = 'none';
+    result.style.display = 'none';
+    ctaCard.style.display = 'none';
+    analyzeBtn.disabled = true;
+    analyzeBtn.textContent = '⏳ 分析中...';
 
-<script>
-// PWA: 注册 Service Worker 离线支持
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js").then(reg => {
-      console.log("✅ PWA ready:", reg.scope);
-    }).catch(err => {
-      console.log("⚠️ SW registration failed:", err);
-    });
+    document.getElementById('step2').className = 'step-dot done';
+    document.getElementById('step3').className = 'step-dot active';
+
+    // 模拟AI分析过程
+    setTimeout(function() {
+      var score = Math.floor(Math.random() * 40) + 30;
+      var types = ['凹陷疤痕', '增生疤痕', '痘坑', '色素沉着', '混合型疤痕'];
+      var type = types[Math.floor(Math.random() * types.length)];
+
+      var details = '';
+      var advice = '';
+      var tags = [];
+
+      if (type === '凹陷疤痕') {
+        details = '检测到皮肤表面凹陷，胶原蛋白缺失，建议尽早修复。';
+        advice = '① 使用修复类产品促进胶原再生\n② 避免暴晒，做好防晒\n③ 建议咨询专业修复师获取个性化方案';
+        tags = ['tag-moderate', '凹陷疤痕'];
+      } else if (type === '增生疤痕') {
+        details = '检测到疤痕组织增生，高于正常皮肤表面，质地较硬。';
+        advice = '① 使用硅酮类产品抑制增生\n② 避免摩擦刺激\n③ 建议尽早干预治疗';
+        tags = ['tag-severe', '增生疤痕'];
+      } else if (type === '痘坑') {
+        details = '检测到多个痘坑，皮肤表面不平整，毛孔粗大。';
+        advice = '① 使用含酸类产品改善肤质\n② 坚持防晒\n③ 专业修复方案效果更佳';
+        tags = ['tag-moderate', '痘坑'];
+      } else if (type === '色素沉着') {
+        details = '检测到皮肤色素沉着，肤色不均，有暗沉区域。';
+        advice = '① 严格防晒，使用美白成分产品\n② 补充VC，促进代谢\n③ 激光治疗可加速改善';
+        tags = ['tag-mild', '色素沉着'];
+      } else {
+        details = '检测到多种疤痕类型混合，需要综合评估。';
+        advice = '① 建议先做皮肤检测\n② 根据不同类型针对性修复\n③ 咨询专业修复师获取综合方案';
+        tags = ['tag-severe', '混合型'];
+      }
+
+      var scoreVal = Math.min(score, 100);
+      document.getElementById('scoreNum').textContent = scoreVal;
+      document.getElementById('diagType').innerHTML = '<span class="tag ' + tags[0] + '">' + tags[1] + '</span>';
+      document.getElementById('diagDetail').textContent = details;
+      document.getElementById('diagAdvice').textContent = advice;
+
+      // 进度环动画
+      var circumference = 2 * Math.PI * 42;
+      var offset = circumference - (scoreVal / 100) * circumference;
+      var progressEl = document.getElementById('scoreProgress');
+      progressEl.style.strokeDasharray = circumference;
+      progressEl.style.strokeDashoffset = offset;
+
+      loading.style.display = 'none';
+      result.style.display = 'block';
+      ctaCard.style.display = 'block';
+      analyzeBtn.disabled = false;
+      analyzeBtn.textContent = '🔍 重新分析';
+      document.getElementById('step3').className = 'step-dot done';
+    }, 1500);
   });
-}
 
-// 检测是否以 App 模式运行
-if (window.navigator.standalone || window.matchMedia("(display-mode: standalone)").matches) {
-  document.documentElement.classList.add("is-app");
-}
+  // 重试
+  retryBtn.addEventListener('click', function() {
+    analyzeBtn.click();
+  });
+
+  // 复制微信号
+  wechatBtn.addEventListener('click', function() {
+    var wechatId = 'sunzhancloud';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(wechatId).then(function() {
+        showToast('✅ 微信号已复制，打开微信添加 ' + wechatId);
+      }).catch(function() {
+        fallbackCopy(wechatId);
+      });
+    } else {
+      fallbackCopy(wechatId);
+    }
+  });
+
+  // 键盘关闭面板
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeConsult();
+  });
+
+  console.log('AI疤痕面诊 v2.0 已加载');
+  console.log('微信: sunzhancloud');
+})();
 </script>
-
 </body>
 </html>

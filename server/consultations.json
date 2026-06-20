@@ -1,0 +1,22 @@
+[
+  {
+    "id": "mqmbgjny1lq4",
+    "name": "云歌",
+    "phone": "13800138000",
+    "msg": "App测试",
+    "source": "app",
+    "createdAt": "2026-06-20T12:10:54.478Z",
+    "ip": "::1",
+    "userAgent": "curl/8.7.1"
+  },
+  {
+    "id": "mqmbfddetu1f",
+    "name": "测试用户",
+    "phone": "13800138000",
+    "msg": "测试咨询",
+    "source": "test",
+    "createdAt": "2026-06-20T12:09:59.666Z",
+    "ip": "::1",
+    "userAgent": "curl/8.7.1"
+  }
+]

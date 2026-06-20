@@ -1,42 +1,58 @@
-const CACHE_NAME = 'ai-scar-diag-v2';
-const ASSETS = [
-  './',
-  './index.html',
-  './manifest.json',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
+// AI疤痕面诊 - Service Worker v2.0
+const CACHE = 'ai-scar-v2';
+const STATIC_FILES = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png'
 ];
 
-// Install: 缓存核心文件
-self.addEventListener('install', (e) => {
+// 安装：缓存静态资源
+self.addEventListener('install', function(e) {
   e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(ASSETS);
-    }).then(() => self.skipWaiting())
+    caches.open(CACHE).then(function(cache) {
+      return cache.addAll(STATIC_FILES);
+    }).then(function() {
+      return self.skipWaiting();
+    })
   );
 });
 
-// Activate: 清理旧缓存
-self.addEventListener('activate', (e) => {
+// 激活：清理旧缓存
+self.addEventListener('activate', function(e) {
   e.waitUntil(
-    caches.keys().then(names => {
+    caches.keys().then(function(keys) {
       return Promise.all(
-        names.filter(n => n !== CACHE_NAME).map(n => caches.delete(n))
+        keys.filter(function(k) { return k !== CACHE; })
+          .map(function(k) { return caches.delete(k); })
       );
-    }).then(() => self.clients.claim())
+    }).then(function() {
+      return self.clients.claim();
+    })
   );
 });
 
-// Fetch: 缓存优先，网络兜底
-self.addEventListener('fetch', (e) => {
+// 拦截请求：缓存优先，网络回退
+self.addEventListener('fetch', function(e) {
+  var url = new URL(e.request.url);
+
+  // API 请求不缓存
+  if (url.pathname.startsWith('/api/')) return;
+
   e.respondWith(
-    caches.match(e.request).then(cached => {
-      return cached || fetch(e.request).catch(() => {
-        // 离线时返回缓存的首页
-        if (e.request.mode === 'navigate') {
-          return caches.match('./index.html');
+    caches.match(e.request).then(function(r) {
+      return r || fetch(e.request).then(function(res) {
+        // 只缓存静态资源
+        if (res.ok && url.origin === self.location.origin &&
+            !url.pathname.startsWith('/api/')) {
+          var clone = res.clone();
+          caches.open(CACHE).then(function(cache) { cache.put(e.request, clone); });
         }
-        return new Response('离线中', { status: 503 });
+        return res;
+      }).catch(function() {
+        // 离线降级
+        return caches.match('/index.html');
       });
     })
   );
