@@ -74,6 +74,71 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-display: swap;
+  position: relative;
+}
+
+/* 高端渐变色背景层 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 120% 100% at 50% -30%, rgba(201,169,110,0.18) 0%, rgba(201,169,110,0.03) 50%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(201,169,110,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 20% 30%, rgba(180,140,80,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(201,169,110,0.08) 0%, transparent 60%),
+    linear-gradient(180deg, #08080e 0%, #0c0a12 25%, #100d14 50%, #0e0b10 75%, #08060a 100%);
+  pointer-events: none;
+}
+
+/* 动态微光动画 */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle 450px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(201,169,110,0.06) 0%, rgba(201,169,110,0.02) 40%, transparent 70%);
+  pointer-events: none;
+  transition: background 0.6s ease;
+}
+
+/* 顶部光晕 */
+.glow-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: -1;
+}
+.glow-orb--top {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(201,169,110,0.06) 0%, transparent 70%);
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  animation: orbFloat 8s ease-in-out infinite;
+}
+.glow-orb--bottom {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(180,140,80,0.04) 0%, transparent 70%);
+  bottom: -150px; right: -100px;
+  animation: orbFloat 10s ease-in-out infinite reverse;
+}
+.glow-orb--side {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(201,169,110,0.03) 0%, transparent 70%);
+  top: 40%; left: -100px;
+  animation: orbFloat 12s ease-in-out infinite 2s;
+}
+@keyframes orbFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+  33% { transform: translateX(-45%) translateY(-30px) scale(1.1); }
+  66% { transform: translateX(-55%) translateY(20px) scale(0.95); }
+}
+@keyframes orbFloat2 {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-40px) scale(1.15); }
 }
 .page { max-width: 420px; margin: 0 auto; padding: 16px 16px 40px; }
 
@@ -84,15 +149,18 @@ body {
   padding-top: 8px;
 }
 .brand .logo {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 800;
-  background: linear-gradient(135deg, #c9a96e, #f0d78c, #c9a96e);
-  background-size: 200% 200%;
+  background: linear-gradient(135deg, #c9a96e, #f0d78c, #d4b87a, #c9a96e);
+  background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: 3px;
-  animation: shimmer 3s ease-in-out infinite;
+  letter-spacing: 4px;
+  animation: shimmer 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(201,169,110,0.15));
+  position: relative;
+  display: inline-block;
 }
 @keyframes shimmer {
   0%,100% { background-position: 0% 50%; }
@@ -107,15 +175,18 @@ body {
 
 /* 安全提示栏 */
 .safety-bar {
-  background: rgba(201,169,110,0.08);
-  border: 1px solid rgba(201,169,110,0.15);
-  border-radius: 10px;
-  padding: 10px 14px;
+  background: linear-gradient(135deg, rgba(201,169,110,0.08), rgba(201,169,110,0.02));
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(201,169,110,0.05);
+  border: 1px solid rgba(201,169,110,0.1);
+  border-radius: 16px;
+  padding: 12px 16px;
   margin-bottom: 16px;
   font-size: 12px;
   color: #999;
   line-height: 1.6;
   text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .safety-bar strong { color: #c9a96e; }
 
@@ -166,8 +237,10 @@ body {
 
 /* 上传区 */
 .upload-zone {
-  background: linear-gradient(135deg, #12121f, #1a1a2e);
-  border: 2px dashed #2a2a3e;
+  background: linear-gradient(135deg, rgba(18,18,31,0.85), rgba(26,26,46,0.85));
+  border: 1.5px dashed rgba(201,169,110,0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
   padding: 40px 24px;
   text-align: center;
@@ -177,8 +250,8 @@ body {
   position: relative;
   contain: layout style;
 }
-.upload-zone:hover { border-color: #3a3a5e; background: #141428; }
-.upload-zone.dragover { border-color: #c9a96e; background: #1a1a30; }
+.upload-zone:hover { border-color: rgba(201,169,110,0.3); background: rgba(20,20,40,0.9); transform: translateY(-2px); }
+.upload-zone.dragover { border-color: #c9a96e; background: rgba(26,26,48,0.95); border-style: solid; }
 .upload-zone .camera-icon {
   width: 64px; height: 64px;
   margin: 0 auto 16px;
@@ -204,7 +277,7 @@ body {
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
   contain: layout paint;
 }
 .preview img {
@@ -250,9 +323,11 @@ body {
   display: none;
   margin-top: 20px;
   padding: 20px;
-  background: linear-gradient(135deg, #12121f, #1a1a2e);
+  background: linear-gradient(135deg, rgba(18,18,31,0.9), rgba(26,26,46,0.9));
   border-radius: 20px;
-  border: 1px solid #2a2a3e;
+  border: 1px solid rgba(201,169,110,0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 .result-section { margin-bottom: 16px; }
 .result-section:last-child { margin-bottom: 0; }
@@ -273,24 +348,56 @@ body {
   position: relative;
 }
 .score-ring-bg {
-  width: 100%; height: 100%;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
-.score-ring-bg svg { transform: rotate(-90deg); }
-.score-ring-bg .bg { fill: none; stroke: #222; stroke-width: 8; }
+.score-ring-bg::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(201,169,110,0.06) 0%, transparent 70%);
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+.score-ring-bg svg {
+  transform: rotate(-90deg);
+  filter: drop-shadow(0 0 8px rgba(201,169,110,0.12));
+}
+.score-ring-bg .bg { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 6; }
 .score-ring-bg .progress {
-  fill: none; stroke: #c9a96e; stroke-width: 8;
+  fill: none;
+  stroke: url(#goldGradient);
+  stroke-width: 6;
   stroke-linecap: round;
-  stroke-dasharray: 314.159;
-  stroke-dashoffset: 314.159;
-  transition: stroke-dashoffset 1.5s ease-out;
+  stroke-dasharray: 263.89;
+  stroke-dashoffset: 263.89;
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .score-text {
   position: absolute; inset: 0;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
 }
-.score-text .num { font-size: 36px; font-weight: 800; color: #f0d78c; }
-.score-text .unit { font-size: 12px; color: #888; margin-top: 2px; }
+.score-text .num {
+  font-size: 40px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #c9a96e, #f0d78c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+.score-text .unit {
+  font-size: 11px;
+  color: #888;
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
 
 /* 标签 */
 .tag {
@@ -305,6 +412,11 @@ body {
 .tag-moderate { background: rgba(255,180,50,0.15); color: #f0c040; border: 1px solid rgba(255,180,50,0.2); }
 .tag-mild { background: rgba(80,200,120,0.15); color: #4ecb71; border: 1px solid rgba(80,200,120,0.2); }
 .tag-info { background: rgba(100,150,255,0.15); color: #6496ff; border: 1px solid rgba(100,150,255,0.2); }
+
+/* 全局微交互 */
+a, button, .upload-zone, .consult-method, .btn-wechat {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 /* 加载动画 */
 .loading {
@@ -328,9 +440,11 @@ body {
   display: none;
   margin-top: 20px;
   padding: 20px;
-  background: linear-gradient(135deg, #0d1f0d, #1a2e1a);
+  background: linear-gradient(135deg, rgba(13,31,13,0.9), rgba(26,46,26,0.9));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
-  border: 1px solid #2a4a2a;
+  border: 1px solid rgba(78,203,113,0.15);
   text-align: center;
 }
 .cta-card h3 { font-size: 16px; font-weight: 700; color: #4ecb71; margin-bottom: 8px; }
@@ -361,7 +475,8 @@ body {
 .copied-toast {
   position: fixed; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(0,0,0,0.85);
+  background: rgba(0,0,0,0.9);
+  border: 1px solid rgba(78,203,113,0.2);
   color: #4ecb71;
   padding: 16px 24px;
   border-radius: 12px;
@@ -379,6 +494,22 @@ body {
   from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
   to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
+
+/* 售后保障徽章 */
+.trust-badge {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 12px 0;
+  font-size: 11px;
+  color: #555;
+}
+.trust-badge span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.trust-badge .dot { color: #4ecb71; }
 
 /* 粒子背景 (纯CSS) */
 .particles {
@@ -456,11 +587,13 @@ body {
   bottom: 170px;
   width: 320px;
   max-width: calc(100vw - 32px);
-  background: #12121f;
-  border: 1px solid #2a2a3e;
+  background: rgba(18,18,31,0.95);
+  border: 1px solid rgba(201,169,110,0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  box-shadow: 0 12px 48px rgba(0,0,0,0.6), inset 0 1px 0 rgba(201,169,110,0.06);
   animation: slideUp 0.3s ease-out;
 }
 .float-panel.show { display: block; }
@@ -470,7 +603,7 @@ body {
 }
 .panel-header {
   padding: 14px 16px;
-  background: linear-gradient(135deg, #07c160, #06ad56);
+  background: linear-gradient(135deg, #c9a96e, #b8944d);
   color: #fff;
   font-size: 14px;
   font-weight: 700;
@@ -495,8 +628,8 @@ body {
   align-items: center;
   gap: 12px;
   padding: 12px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid #1e1e30;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,169,110,0.08);
   border-radius: 12px;
   margin-bottom: 8px;
   cursor: pointer;
@@ -509,10 +642,10 @@ body {
 .method-desc { font-size: 11px; color: #666; margin-top: 2px; }
 .method-action {
   font-size: 12px;
-  color: #07c160;
+  color: #c9a96e;
   font-weight: 600;
   padding: 4px 12px;
-  border: 1px solid rgba(7,193,96,0.3);
+  border: 1px solid rgba(201,169,110,0.3);
   border-radius: 6px;
 }
 
@@ -520,8 +653,8 @@ body {
 .form-title { font-size: 12px; color: #888; margin-bottom: 8px; }
 .form-input {
   width: 100%;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid #2a2a3e;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(201,169,110,0.1);
   border-radius: 8px;
   padding: 10px 12px;
   color: #e0e0e0;
@@ -531,7 +664,7 @@ body {
   transition: border-color 0.2s;
   font-family: inherit;
 }
-.form-input:focus { border-color: #07c160; }
+.form-input:focus { border-color: #c9a96e; }
 .form-input::placeholder { color: #555; }
 .form-input.error { border-color: #e8876b; }
 .form-textarea { resize: none; }
@@ -546,7 +679,7 @@ body {
 .btn-submit {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #07c160, #06ad56);
+  background: linear-gradient(135deg, #c9a96e, #b8944d);
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -554,7 +687,9 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: all 0.25s;
+  box-shadow: 0 4px 15px rgba(201,169,110,0.2);
 }
+.btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201,169,110,0.3); }
 .btn-submit:active { transform: scale(0.97); }
 .btn-submit:disabled {
   opacity: 0.5; cursor: not-allowed; transform: none;
@@ -590,6 +725,9 @@ body {
 </style>
 </head>
 <body>
+<div class="glow-orb glow-orb--top"></div>
+<div class="glow-orb glow-orb--bottom"></div>
+<div class="glow-orb glow-orb--side"></div>
 
 <!-- 粒子背景 -->
 <div class="partials" aria-hidden="true">
@@ -666,8 +804,15 @@ body {
     <div class="score-ring">
       <div class="score-ring-bg">
         <svg viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#c9a96e"/>
+              <stop offset="50%" stop-color="#f0d78c"/>
+              <stop offset="100%" stop-color="#c9a96e"/>
+            </linearGradient>
+          </defs>
           <circle class="bg" cx="50" cy="50" r="42"/>
-          <circle class="progress" id="scoreProgress" cx="50" cy="50" r="42"/>
+          <circle class="progress" id="scoreProgress" cx="50" cy="50" r="42" stroke="url(#goldGradient)"/>
         </svg>
       </div>
       <div class="score-text">
@@ -731,6 +876,14 @@ body {
           </div>
           <div class="method-action">拨打</div>
         </div>
+        <div class="consult-method" onclick="openWechatDirect()" role="button" tabindex="0">
+          <div class="method-icon" aria-hidden="true">🔗</div>
+          <div class="method-info">
+            <div class="method-name">打开微信直接咨询</div>
+            <div class="method-desc">跳转微信 · 添加咨询师</div>
+          </div>
+          <div class="method-action">打开</div>
+        </div>
         <div class="consult-form">
           <div class="form-title">📝 留下联系方式，咨询师主动联系你</div>
           <input type="text" class="form-input" id="consultName" placeholder="你的称呼" maxlength="20" aria-label="你的称呼" autocomplete="name">
@@ -779,9 +932,45 @@ function fallbackCopy(id) {
   document.body.removeChild(ta);
 }
 
-// 拨打电话
+// 拨打电话（直接拉起系统拨号）
 function callPhone() {
-  showToast("📞 请联系: 138-0013-8100");
+  var phone = "13800138100";
+  // 先尝试直接打开 tel: 链接
+  var telLink = document.createElement('a');
+  telLink.href = "tel:" + phone;
+  telLink.click();
+  // 3秒后如果没反应，显示提示
+  setTimeout(function() {
+    showToast("📞 请拨打 " + phone.slice(0,3) + "-" + phone.slice(3,7) + "-" + phone.slice(7));
+  }, 3000);
+}
+
+// 直接打开微信
+function openWechatDirect() {
+  var wechatUrl = "weixin://dl/business/?t=UATmEh29QqG";
+  var opened = false;
+  
+  // 方法1: 使用 location.href 跳转
+  var win = window.open(wechatUrl, '_blank');
+  if (win) {
+    opened = true;
+    setTimeout(function() { win.close(); }, 100);
+  }
+  
+  // 方法2: 创建临时链接点击
+  var link = document.createElement('a');
+  link.href = wechatUrl;
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  
+  // 提示用户
+  showToast('💬 正在打开微信...');
+  setTimeout(function() {
+    copyWechatId('sunzhancloud');
+    showToast('✅ 微信号 sunzhancloud 已复制，打开微信搜索添加');
+  }, 1500);
 }
 
 // 提交咨询表单
@@ -816,7 +1005,21 @@ function submitConsult() {
   formMsg.textContent = '';
 
   // 先尝试在线API
-  var apiUrl = window.location.origin + '/api/consult';
+    // 尝试多个API端点
+  var apiUrls = [
+    window.location.origin + '/api/consult',
+    'https://api.yunge.ai/api/consult',
+    'http://localhost:3001/api/consult'
+  ];
+  trySubmitConsult(apiUrls, 0);
+
+function trySubmitConsult(urls, index) {
+  if (index >= urls.length) {
+    // 所有API都失败，离线降级
+    handleConsultOffline(name, phone, msg);
+    return;
+  }
+  var apiUrl = urls[index];
 
   fetch(apiUrl, {
     method: 'POST',
@@ -839,24 +1042,27 @@ function submitConsult() {
     }
   })
   .catch(function(err) {
-    // 离线降级：复制到剪贴板
-    var consultText = "📋 新咨询:\n称呼: " + name + "\n联系方式: " + phone;
-    if (msg) consultText += "\n描述: " + msg;
-    consultText += "\n\n---\n请添加微信: sunzhancloud";
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(consultText);
-    }
-
-    formMsg.className = 'form-msg';
-    formMsg.textContent = '✅ 已收到！请添加微信 sunzhancloud 联系咨询师';
-
-    setTimeout(function() { copyWechatId('sunzhancloud'); }, 500);
-  })
-  .finally(function() {
-    btn.disabled = false;
-    btn.innerHTML = '✅ 提交，等待咨询师联系';
+    // 当前API失败，尝试下一个
+    trySubmitConsult(urls, index + 1);
   });
+} // end trySubmitConsult
+
+function handleConsultOffline(name, phone, msg) {
+  var consultText = "📋 新咨询:\n称呼: " + name + "\n联系方式: " + phone;
+  if (msg) consultText += "\n描述: " + msg;
+  consultText += "\n\n---\n请添加微信: sunzhancloud";
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(consultText);
+  }
+
+  formMsg.className = 'form-msg';
+  formMsg.textContent = '✅ 已收到！请添加微信 sunzhancloud 联系咨询师';
+
+  setTimeout(function() { copyWechatId('sunzhancloud'); }, 500);
+  btn.disabled = false;
+  btn.innerHTML = '✅ 提交，等待咨询师联系';
+}
 }
 
 // Toast提示
@@ -1040,9 +1246,30 @@ document.addEventListener('click', function(e) {
     }
   });
 
+  // 直接打开微信
+  function openWechat() {
+    // iOS/Android 微信跳转
+    var wechatUrl = "weixin://";
+    var windowRef = window.open(wechatUrl, '_blank');
+    if (!windowRef || windowRef.closed) {
+      // 如果微信协议无法打开，提示复制微信号
+      copyWechatId('sunzhancloud');
+      showToast("💬 请手动打开微信搜索: sunzhancloud");
+    }
+  }
+  
   // 键盘关闭面板
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeConsult();
+  });
+
+  // 鼠标跟踪光效
+  var mouseX = 50, mouseY = 50;
+  document.addEventListener('mousemove', function(e) {
+    mouseX = (e.clientX / window.innerWidth) * 100;
+    mouseY = (e.clientY / window.innerHeight) * 100;
+    document.documentElement.style.setProperty('--mouse-x', mouseX + '%');
+    document.documentElement.style.setProperty('--mouse-y', mouseY + '%');
   });
 
   console.log('AI疤痕面诊 v2.0 已加载');
